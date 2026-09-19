@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PEMOSIS - Login</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container login-box">
+
+    <h1>PEMOSIS</h1>
+    <h3>Pemilihan Ketua OSIS</h3>
+
+    <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="logo">
+
+    <input type="text" id="nama" placeholder="Nama Lengkap">
+
+    <input type="text" id="kelas" placeholder="Kelas">
+
+    <button onclick="login()">Masuk & Verifikasi</button>
+
+    <p id="pesan"></p>
+
+</div>
+
+
+<script>
+
+function login(){
+
+let nama=document.getElementById("nama").value;
+let kelas=document.getElementById("kelas").value;
+
+if(nama=="" || kelas==""){
+document.getElementById("pesan").innerHTML=
+"⚠️ Nama dan kelas wajib diisi!";
+return;
+}
+
+
+let pemilih={
+nama:nama,
+kelas:kelas
+};
+
+
+let data=JSON.parse(localStorage.getItem("pemilih")) || [];
+
+
+let sudah=data.find(
+s=>s.nama.toLowerCase()==nama.toLowerCase()
+);
+
+
+if(sudah && sudah.pilihan){
+
+alert("Anda sudah melakukan voting!");
+window.location="chek.html";
+
+}
+
+else{
+
+localStorage.setItem(
+"currentUser",
+JSON.stringify(pemilih)
+);
+
+window.location="vote.html";
+
+}
+
+
+}
+
+</script>
+
+
+</body>
+</html>
