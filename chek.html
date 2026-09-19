@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Check PEMOSIS</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>📊 Quick Count PEMOSIS</h1>
+
+
+<table>
+
+<thead>
+
+<tr>
+<th>Nama</th>
+<th>Kelas</th>
+<th>Pilihan</th>
+<th>Waktu</th>
+</tr>
+
+</thead>
+
+
+<tbody id="tabel">
+
+</tbody>
+
+
+</table>
+
+
+
+<h2>Hasil Sementara</h2>
+
+
+<div id="hasil"></div>
+
+
+
+</div>
+
+
+
+
+<script>
+
+
+let data=
+JSON.parse(localStorage.getItem("pemilih")) || [];
+
+
+
+let tabel=document.getElementById("tabel");
+
+
+let jumlah=[
+0,0,0
+];
+
+
+data.forEach(x=>{
+
+
+let tr=document.createElement("tr");
+
+
+tr.innerHTML=`
+
+<td>${x.nama}</td>
+
+<td>${x.kelas}</td>
+
+<td>Paslon ${x.pilihan}</td>
+
+<td>${x.waktu}</td>
+
+`;
+
+
+tabel.appendChild(tr);
+
+
+
+jumlah[x.pilihan-1]++;
+
+
+});
+
+
+
+let total=data.length;
+
+
+let hasil=document.getElementById("hasil");
+
+
+
+for(let i=0;i<3;i++){
+
+
+let persen= total?
+(jumlah[i]/total*100).toFixed(1):0;
+
+
+hasil.innerHTML+=`
+
+<div class="bar">
+
+Paslon ${i+1}
+
+<div class="progress">
+
+<span style="
+width:${persen}%">
+</span>
+
+
+</div>
+
+${jumlah[i]} suara (${persen}%)
+
+</div>
+
+
+`;
+
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Voting PEMOSIS</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+
+<div class="header">
+
+<h1>PEMOSIS</h1>
+<p>Pilih Ketua OSIS Terbaik</p>
+
+</div>
+
+
+<div class="cards">
+
+
+<div class="card">
+
+<img src="gambar/paslon1.png" class"foto-full">
+
+<button onclick="pilih(1)">
+Pilih Paslon 1
+</button>
+
+</div>
+
+
+
+<div class="card">
+
+<img src="gambar/paslon2.png"class"foto-full">
+
+<button onclick="pilih(2)">
+Pilih Paslon 2
+</button>
+
+</div>
+
+
+
+
+<div class="card">
+
+<img src="gambar/paslon3.png"class"foto-full">
+
+<button onclick="pilih(3)">
+Pilih Paslon 3
+</button>
+
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+
+function pilih(no){
+
+
+let yakin=confirm(
+"Apakah Anda yakin dengan pilihan Anda?"
+);
+
+
+if(!yakin)return;
+
+
+let user=
+JSON.parse(localStorage.getItem("currentUser"));
+
+
+let data=
+JSON.parse(localStorage.getItem("pemilih")) || [];
+
+
+
+let siswa=data.find(
+x=>x.nama==user.nama
+);
+
+
+
+if(!siswa){
+
+siswa={
+nama:user.nama,
+kelas:user.kelas,
+pilihan:no,
+waktu:new Date().toLocaleString()
+};
+
+
+data.push(siswa);
+
+
+}
+
+else{
+
+siswa.pilihan=no;
+siswa.waktu=new Date().toLocaleString();
+
+}
+
+
+localStorage.setItem(
+"pemilih",
+JSON.stringify(data)
+);
+
+
+
+alert("Voting berhasil! Terima kasih.");
+
+window.location="check.html";
+
+
+}
+
+
+
+</script>
+
+
+</body>
+</html>
